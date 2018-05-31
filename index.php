@@ -1,4 +1,10 @@
-<?php session_start(); ?>
+<?php session_start();
+    if(!ISSET($_SESSION["temp"])){
+        $_SESSION["temp"]="";
+    }else if($_SESSION["temp"]=="Errore"){
+        $_SESSION["temp"]="";
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,7 +35,7 @@
     <body style="background-color:powderblue;" class="text-center" onload="ctrlData()">
         <!--Impostazioni CSS in modo che gli elementi della pagina siano posti al centro-->
         <div style="margin: 0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-            <h2><?php echo "".$_SESSION["temp"]."" ?></h2>
+            <h2><?php echo "".$_SESSION["temp"]."";?></h2>
             <form class="form-signin" action="Login.php" method="POST">
     			<h1 class="h3 mb-3 font-weigth-normal">Login</h1>
                 <!--Nome Utente-->
@@ -45,7 +51,7 @@
                 <!--Submit e link-->
                 <input class="btn btn-primary" type="submit" id="sub" name="sub" value="Accedi">
                 <br/>
-                <button class="btn btn-link" name="but" onclick="location.href='./Registrazione.php'">Registrati</button>
+                <button class="btn btn-link" name="but" id="but" onclick="location.href='./Registrazione.php'">Registrati</button>
     		</form>
         </div>
     </body>

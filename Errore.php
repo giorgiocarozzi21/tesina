@@ -1,4 +1,10 @@
-<?php session_start() ?>
+<?php session_start();
+    if(!ISSET($_SESSION["temp"])){
+        $_SESSION["temp"]="";
+    }else if($_SESSION["temp"]==""){
+        $_SESSION["temp"]="Errore";
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,10 +17,10 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
         <title>Errore</title>
     </head>
-    <body style="background-color:powderblue;" class="text-center" onload="CtrlData()">
+    <body style="background-color:powderblue;" class="text-center">
         <div style="margin: 0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
             <h2>
-                <?php echo "".$_SESSION["temp"].""?>
+                <?php echo "".$_SESSION["temp"]."";?>
                 <br/><button class="btn btn-link" name="but" onclick="location.href='./index.php'">Ritorna alla pagina iniziale</button>
             </h2>
         </div>

@@ -25,7 +25,7 @@
     $sql="SELECT * FROM utenti INNER JOIN squadre ON utenti.Squadra=Squadre.ID_Squadra WHERE Username='$usna'";
     $stmt=$db->prepare($sql);
     $stmt->execute();
-    while($r=$stmt->fetch(PDO::FETCH_ASSOC)){
+    while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
         if($row['Username']!=""){
             $pwh=$row['Passwd'];
             if(controllo($uspw,$pwh)){
