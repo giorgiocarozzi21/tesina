@@ -1,6 +1,4 @@
-<?php session_start();
-if(!ISSET($_SESSION["temp"]))
- $_SESSION["temp"]=""?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,7 +29,7 @@ if(!ISSET($_SESSION["temp"]))
     <body style="background-color:powderblue;" class="text-center" onload="ctrlData()">
         <!--Impostazioni CSS in modo che gli elementi della pagina siano posti al centro-->
         <div style="margin: 0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-            <h2><?php echo "".$_SESSION["temp"]."";?></h2>
+            <h2><?php echo "".$_SESSION["temp"]."" ?></h2>
             <form class="form-signin" action="Login.php" method="POST">
     			<h1 class="h3 mb-3 font-weigth-normal">Login</h1>
                 <!--Nome Utente-->
@@ -47,7 +45,7 @@ if(!ISSET($_SESSION["temp"]))
                 <!--Submit e link-->
                 <input class="btn btn-primary" type="submit" id="sub" name="sub" value="Accedi">
                 <br/>
-                <input type="button"  onclick="location.href='Registrazione.php'" value="Registrati" class="btn btn-link">
+                <button class="btn btn-link" name="but" onclick="location.href='./Registrazione.php'">Registrati</button>
     		</form>
         </div>
     </body>
