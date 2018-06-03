@@ -1,6 +1,10 @@
 <?php session_start();
-if(!ISSET($_SESSION["temp"]))
- $_SESSION["temp"]=""?>
+    if(!ISSET($_SESSION["temp"])){
+        $_SESSION["temp"]="";
+    }else if($_SESSION["temp"]=="Errore"){
+        $_SESSION["temp"]="";
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -47,7 +51,7 @@ if(!ISSET($_SESSION["temp"]))
                 <!--Submit e link-->
                 <input class="btn btn-primary" type="submit" id="sub" name="sub" value="Accedi">
                 <br/>
-                <input type="button"  onclick="location.href='Registrazione.php'" value="Registrati" class="btn btn-link">
+                <button class="btn btn-link" name="but" id="but" onclick="location.href='./Registrazione.php'">Registrati</button>
     		</form>
         </div>
     </body>

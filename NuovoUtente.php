@@ -10,23 +10,43 @@
     $sq=$_POST['sq']; //Squadra da segure
     $uspw=$_POST['pw']; //Password
     $usem=$_POST['em']; //Email
-    $connessione=new mysqli("localhost","user","Utente123/","tesina");
-    if($connessione->connect_error){
+    try{
+        $host="localhost";
+        $nomedb="tesina";
+        $db=new PDO("mysql:host=$host;dbname=$nomedb","Ut","Tesina2018");
+    }catch (PDOException $e) {
         $_SESSION['temp']="Connessione al database fallita";
         header("Location:Errore.php");
+        $db=null;
         die();
     }
     $pwc=hashpw($uspw);
-    $sql="INSERT INTO utenti (Nome,Cognome,Username,Passwd,Email,Squadra) VALUES('$usna','$ussa','$usni','$pwc','usem','$sq')";
-    if($connessione->query($sql)===TRUE){
-        $_SESSION["temp"]="Nuovo utente registrato";
-        header("Location:index.php");
-        $connessione->close();
-        die();
-    } else{
-        $_SESSION["temp"]="Utente non registrato riprovare";
-        header("Location:errore.php");
-        $connessione->close();
-        die();
-    }
+    $sql="INSERT INTO utenti (Nome,Cognome,Username,Passwd,Email) VALUES(':usna',':ussa',':usni',':pwc',':usem',':sq')";
+    $stmt=$db->prepare($sql);
+    $stmt->bindParam(':usna',$usna,PDO::PARAM_STR);
+    $stmt->bindParam(':ussa',$ussa,PDO::PARAM_STR);
+    $stmt->bindParam(':usni',$usni,PDO::PARAM_STR);
+    $stmt->bindParam(':pwc',$pwc,PDO::PARAM_STR);
+    $stmt->bindParam(':usem',$usem,PDO::PARAM_STR);
+    $stmt->execute();
+    $sql="SELECT ID_Utente FROM utenti WHERE Username=$usni";
+    $stmt=$db->prepare($sql);
+    $stmt->execute();
+    while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
+        if($row['Username']!=""){
+                $sql="INSERT INTO seguono (Utente,Squadra) VALUES(':usni',':sq')";
+                $stmt->bindParam(':usni',$usni,PDO::PARAM_STR);
+                $stmt->bindParam(':sq',$sq,PDO::PARAM_STR);
+            }else{
+                $_SESSION['temp']="Errore di inserimento";
+                header("Location: Errore.php");
+                $db=null;
+                die();
+            }
+        }else{
+            $_SESSION['temp']="Nome utente errato o non esistente";
+            header("Location: Errore.php");
+            $db=null;
+            die();
+        }
 ?>
